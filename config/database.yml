@@ -1,4 +1,4 @@
-<% project_name = 'rails-api-template' %>
+<% project_name = 'pokedeck-full-stack-project' %>
 
 default: &default
   adapter: postgresql
