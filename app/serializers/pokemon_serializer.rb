@@ -1,3 +1,3 @@
 class PokemonSerializer < ActiveModel::Serializer
-  attributes :id, :name, :type, :gen, :img
+  attributes :id, :name, :el_type, :gen, :img
 end
