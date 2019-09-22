@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class PokemonsController < ProtectedController
   before_action :set_pokemon, only: %i[show update destroy]
 
   # GET /pokemons
   def index
-    @pokemons = Pokemon.all
+    @pokemons = current_user.pokemons.all
 
     render json: @pokemons
   end
@@ -15,10 +17,10 @@ class PokemonsController < ProtectedController
 
   # POST /pokemons
   def create
-    @pokemon = Pokemon.new(pokemon_params)
+    @pokemon = current_user.pokemons.build(pokemon_params)
 
     if @pokemon.save
-      render json: @pokemon, status: :created, location: @pokemon
+      render json: @pokemon, status: :created # location: @pokemon
     else
       render json: @pokemon.errors, status: :unprocessable_entity
     end
@@ -42,7 +44,7 @@ class PokemonsController < ProtectedController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_pokemon
-    @pokemon = Pokemon.find(params[:id])
+    @pokemon = current_user.pokemons.find(params[:id])
   end
 
   # Only allow a trusted parameter "white list" through.
